@@ -1,5 +1,9 @@
+import SbEditable from 'storyblok-react'
+
 export default (props) => (
-  <div v-editable="blok" className="column feature">
-    {props.content.name}
-  </div>
+  <SbEditable content={props.content}>
+    <div className="column feature">
+      {props.content.name}
+    </div>
+  </SbEditable>
 )
