@@ -2,7 +2,7 @@ import StoryblokClient from 'storyblok-js-client'
 
 class StoryblokService {
   constructor() {
-    this.devMode = false // Always loads draft
+    this.devMode = false // If true it always loads draft
     this.token = 'vIxSxIvAUpbqD8V7NrciPAtt'
     this.client = new StoryblokClient({
       accessToken: this.token,
@@ -35,7 +35,7 @@ class StoryblokService {
 
   initEditor(reactComponent) {
     if (window.storyblok) {
-      window.storyblok.init()
+      window.storyblok.init({accessToken: this.token})
       window.storyblok.on(['change', 'published'], () => location.reload(true))
       window.storyblok.on('input', (event) => {
         if (event.story.content._uid === reactComponent.state.pageContent._uid) {
@@ -54,10 +54,10 @@ class StoryblokService {
   }
 
   bridge() {
-    if (!this.getQuery('_storyblok') && !this.devMode) {
+    if (!this.getQuery('_storyblok')) {
       return ''
     }
-    return (<script src={'//app.storyblok.com/f/storyblok-latest.js?t=' + this.token}></script>)
+    return (<script src='//app.storyblok.com/f/storyblok-latest.js'></script>)
   }
 }
 
