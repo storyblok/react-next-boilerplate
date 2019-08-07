@@ -8,12 +8,12 @@
     }
   ],
   "routes": [
-    { 
-      "src": "/favicon.ico", 
-      "dest": "/static/favicon.ico" 
+    {
+      "src": "/favicon.ico",
+      "dest": "/static/favicon.ico"
     },
     {
-      "src": "/(.*)$",
+      "src": "/^(?!(_next)).+$",
       "dest": "/index?slug=$1"
     }
   ]
