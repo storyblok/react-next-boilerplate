@@ -12,11 +12,11 @@
   "author": "Alexander Feiglstorfer <delooks@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "next": "^7.0.2",
+    "next": "^9.3.1",
     "next-routes": "^1.4.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "storyblok-js-client": "^1.0.21",
-    "storyblok-react": "0.0.6"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "storyblok-js-client": "^2.1.0",
+    "storyblok-react": "0.0.10"
   }
 }
