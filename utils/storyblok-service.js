@@ -2,7 +2,7 @@ import StoryblokClient from 'storyblok-js-client'
 
 class StoryblokService {
   constructor() {
-    this.devMode = false // If true it always loads draft
+    this.devMode = false // Always loads draft
     this.token = 'vIxSxIvAUpbqD8V7NrciPAtt'
     this.client = new StoryblokClient({
       accessToken: this.token,
@@ -35,11 +35,13 @@ class StoryblokService {
 
   initEditor(reactComponent) {
     if (window.storyblok) {
-      window.storyblok.init({accessToken: this.token})
-      window.storyblok.on(['change', 'published'], () => location.reload(true))
+      window.storyblok.init()
+      window.storyblok.on(['change', 'published'], () => location.reload())
+
+      // this will alter the state and replaces the current story with a current raw story object (no resolved relations or links)
       window.storyblok.on('input', (event) => {
         if (event.story.content._uid === reactComponent.state.pageContent._uid) {
-          reactComponent.setState({pageContent: event.story.content})
+          reactComponent.setState({pageContent: window.storyblok.addComments(event.story.content, event.story.id)})
         }
       })
     }
@@ -54,10 +56,10 @@ class StoryblokService {
   }
 
   bridge() {
-    if (!this.getQuery('_storyblok')) {
+    if (!this.getQuery('_storyblok') && !this.devMode) {
       return ''
     }
-    return (<script src='//app.storyblok.com/f/storyblok-latest.js'></script>)
+    return (<script src={'//app.storyblok.com/f/storyblok-latest.js?t=' + this.token}></script>)
   }
 }
 

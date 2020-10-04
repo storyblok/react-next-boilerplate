@@ -1,12 +1,14 @@
-import Components from './index'
+import Component from './index'
 import SbEditable from 'storyblok-react'
 
-export default (props) => (
-  <SbEditable content={props.content}>
-    <div>
-      {props.content.body.map((blok) =>
-        Components(blok)
-      )}
-    </div>
+const Page = ({body}) => (
+  <SbEditable content={body}>
+  <main>
+    {body.map((blok) =>
+      <Component blok={blok} key={blok._uid} />
+    )}
+  </main>
   </SbEditable>
 )
+
+export default Page

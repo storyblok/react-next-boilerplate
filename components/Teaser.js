@@ -1,10 +1,13 @@
-import Components from './index'
 import SbEditable from 'storyblok-react'
 
-export default (props) => (
-  <SbEditable content={props.content}>
-    <div className="teaser">
-      {props.content.headline}
-    </div>
-  </SbEditable>
-)
+const Teaser = ({blok}) => {
+  return (
+    <SbEditable content={blok}>
+      <div className="teaser">
+        <h1>{blok.headline}</h1>
+      </div>
+    </SbEditable>
+  )
+}
+
+export default Teaser
