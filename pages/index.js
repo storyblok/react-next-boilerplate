@@ -13,9 +13,10 @@ export default class extends React.Component {
 
   static async getInitialProps({ query }) {
     StoryblokService.setQuery(query)
+    let slug = query.slug || 'home'
 
     return {
-      page: await StoryblokService.get('cdn/stories/home')
+      page: await StoryblokService.get(`cdn/stories/${slug}`)
     }
   }
 
