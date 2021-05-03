@@ -1,13 +1,12 @@
 import Head from "next/head"
 import styles from "../styles/Home.module.css"
  
-// The Storyblok Client
-import Storyblok from "../lib/storyblok"
+// The Storyblok Client & hook
+import Storyblok, { useStoryblok } from "../lib/storyblok"
 import DynamicComponent from '../components/DynamicComponent'
  
 export default function Home(props) {
-  const story = props.story
- 
+  const story = useStoryblok(props.story)
   return (
     <div className={styles.container}>
       <Head>
