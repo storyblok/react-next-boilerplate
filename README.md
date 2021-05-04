@@ -1,34 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Storyblok Boilerplate
 
-## Getting Started
+This repository is a Next.js [Storyblok](https://www.storyblok.com) starter template used in following [5 minute tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes).
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
+To use this project you have to have a Storyblok account. If you don't have one yet you can register at [Storyblok](https://www.storyblok.com), it's free.
+
+## How to get started?
+
+Read the [Next.js tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes) about connecting Storyblok and Next.js
+
+### 1. Clone the repo
+
+```sh
+  $ git clone https://github.com/storyblok/react-next-boilerplate.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install all dependecies 
+```sh
+$  yarn # or npm install
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### 3. Adding the Access token
+Create a new empty Space and exchange the preview token with your own in ```lib/storyblok.js```.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```js
+// in lib/storyblok.js
+const Storyblok = new StoryblokClient({
+    accessToken: 'your-preview-token',
+    cache: {
+        clear: 'auto',
+        type: 'memory'
+    }
+})
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 4. Run your project
+Set the preview domain in <strong>Storyblok</strong> to `http://localhost:3000/`
 
-## Learn More
+```sh
+# to run in developer mode
+$ yarn dev # or npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+# to build your project
+$ yarn build # or npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Resources
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Next.js docs](https://nextjs.org/docs/#setup)
+- [Storyblok Tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
+- [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+  
