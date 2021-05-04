@@ -5,8 +5,8 @@ import styles from "../styles/Home.module.css"
 import Storyblok, { useStoryblok } from "../lib/storyblok"
 import DynamicComponent from '../components/DynamicComponent'
  
-export default function Home(props) {
-  const story = useStoryblok(props.story)
+export default function Home({ story, preview }) {
+  story = useStoryblok(story, preview)
   return (
     <div className={styles.container}>
       <Head>
@@ -32,7 +32,7 @@ export default function Home(props) {
 export async function getStaticProps(context) {
   let slug = "home"
   let params = {
-    version: "draft", // or 'published'
+    version: "published", // or 'draft'
   }
  
   if (context.preview) {
