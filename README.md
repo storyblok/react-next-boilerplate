@@ -1,6 +1,6 @@
 # Next.js Storyblok Boilerplate
 
-This repository is a Next [Storyblok](https://www.storyblok.com) starter template used in following [tutorial](https://www.storyblok.com/tp/next-js-react-guide).
+This repository is a Next.js [Storyblok](https://www.storyblok.com) starter template used in following [5 minute tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes).
 
 ## Requirements
 
@@ -8,12 +8,12 @@ To use this project you have to have a Storyblok account. If you don't have one 
 
 ## How to get started?
 
-Read the [Next.js tutorial](https://www.storyblok.com/tp/next-js-react-guide) about Storyblok's concept.
+Read the [Next.js tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes) about connecting Storyblok and Next.js
 
-### 1. Get the source code.
+### 1. Clone the repo
 
 ```sh
-  $ git clone https://github.com/storyblok/gatsby-storyblok-boilerplate.git
+  $ git clone https://github.com/storyblok/react-next-boilerplate.git
 ```
 
 ### 2. Install all dependecies 
@@ -22,25 +22,21 @@ $  yarn # or npm install
 ```
 
 ### 3. Adding the Access token
-Create a new empty Space and exchange the preview token with your own in ```utils/StoryblokService.js``` (not required if you have downloaded the project via app.storyblok.com).
+Create a new empty Space and exchange the preview token with your own in ```lib/storyblok.js```.
 
 ```js
-// in utils/StoryblokService.js
-class StoryblokService {
-  constructor() {
-    this.devMode = false // If true it always loads draft
-    this.token = 'Your_Preview_Token_Here'
-    this.client = new StoryblokClient({
-      accessToken: this.token,
-      cache: {
+// in lib/storyblok.js
+const Storyblok = new StoryblokClient({
+    accessToken: 'your-preview-token',
+    cache: {
         clear: 'auto',
         type: 'memory'
-      }
-    })
+    }
+})
 ```
 
 ### 4. Run your project
-Set the preview domain in <strong>Storyblok</strong> to `http://localhost:3000`
+Set the preview domain in <strong>Storyblok</strong> to `http://localhost:3000/`
 
 ```sh
 # to run in developer mode
@@ -52,10 +48,13 @@ $ yarn dev # or npm run dev
 $ yarn build # or npm run build
 ```
 
-For detailed explanation on how things work, checkout the [Next.js docs](https://nextjs.org/docs/#setup).
 
----
 
-<p align="center">
-  <h5 align="center">Powered by <a href="https://www.storyblok.com/" title="link to the Storyblok website">Storyblok</a></h5>
-</p>
+## Resources
+
+- [Next.js docs](https://nextjs.org/docs/#setup)
+- [Storyblok Tutorial](https://www.storyblok.com/tp/add-a-headless-cms-to-next-js-in-5-minutes)
+- [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode)
+
+
+  

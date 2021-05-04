@@ -1,12 +1,14 @@
-import Components from './index'
-import SbEditable from 'storyblok-react'
+import React from 'react'
+import DynamicComponent from '../components/DynamicComponent'
 
-export default (props) => (
-  <SbEditable content={props.content}>
+const Grid = ({ blok }) => {
+  return (
     <div className="grid">
-      {props.content.columns.map((blok) =>
-        Components(blok)
+      {blok.columns.map((blok) =>
+        (<DynamicComponent blok={blok} key={blok._uid}/>)
       )}
     </div>
-  </SbEditable>
-)
+  )
+}
+ 
+export default Grid

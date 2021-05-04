@@ -1,73 +1,52 @@
-import NextHead from 'next/head'
-import Components from '../components/index'
-import StoryblokService from '../utils/StoryblokService'
-import SbEditable from 'storyblok-react'
-import React from 'react'
-
-export default class extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {pageContent: props.page.data.story.content}
+import Head from "next/head"
+import styles from "../styles/Home.module.css"
+ 
+// The Storyblok Client & hook
+import Storyblok, { useStoryblok } from "../lib/storyblok"
+import DynamicComponent from '../components/DynamicComponent'
+ 
+export default function Home({ story, preview }) {
+  story = useStoryblok(story, preview)
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Create Next App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+ 
+      <header>
+        <h1>
+          { story ? story.name : 'My Site' }
+        </h1>
+      </header>
+ 
+      <main>
+        { story ? story.content.body.map((blok) => (
+          <DynamicComponent blok={blok} key={blok._uid}/>
+        )) : null }
+      </main>
+    </div>
+  )
+}
+ 
+export async function getStaticProps(context) {
+  let slug = "home"
+  let params = {
+    version: "published", // or 'draft'
   }
-
-  static async getInitialProps({ query }) {
-    StoryblokService.setQuery(query)
-    let slug = query.slug || 'home'
-
-    return {
-      page: await StoryblokService.get(`cdn/stories/${slug}`)
-    }
+ 
+  if (context.preview) {
+    params.version = "draft"
+    params.cv = Date.now()
   }
-
-  componentDidMount() {
-    StoryblokService.initEditor(this)
-  }
-
-  render() {
-    return (
-      <div>
-        <NextHead>
-          {StoryblokService.bridge()}
-        </NextHead>
-
-        {Components(this.state.pageContent)}
-
-        <style jsx global>{`
-          html {
-              font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-              font-size: 16px;
-              word-spacing: 1px;
-              -ms-text-size-adjust: 100%;
-              -webkit-text-size-adjust: 100%;
-              -moz-osx-font-smoothing: grayscale;
-              -webkit-font-smoothing: antialiased;
-              box-sizing: border-box;
-            }
-
-            *, *:before, *:after {
-              box-sizing: border-box;
-              margin: 0;
-            }
-
-            .teaser,
-            .column {
-              font-size: 2rem;
-              text-align: center;
-              line-height: 3;
-              background: #ebeff2;
-              border-radius: 10px;
-              margin: 10px 5px;
-            }
-
-            .grid {
-              display: flex;
-            }
-
-            .column {
-              flex: 1;
-            }
-          `}</style>
-      </div>
-    )
+ 
+  let { data } = await Storyblok.get(`cdn/stories/${slug}`, params)
+ 
+  return {
+    props: {
+      story: data ? data.story : false,
+      preview: context.preview || false
+    },
+    revalidate: 10, 
   }
 }
