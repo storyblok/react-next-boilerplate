@@ -11,7 +11,7 @@ export default async function preview(req, res) {
  
     // Set cookie to None, so it can be read in the Storyblok iframe
     const cookies = res.getHeader('Set-Cookie')
-    res.setHeader('Set-Cookie', cookies.map((cookie) => cookie.replace('SameSite=Lax', 'SameSite=None')))
+    res.setHeader('Set-Cookie', cookies.map((cookie) => cookie.replace('SameSite=Lax', 'SameSite=None;Secure')))
  
   
     // Redirect to the path from entry
