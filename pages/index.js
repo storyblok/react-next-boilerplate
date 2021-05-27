@@ -21,9 +21,7 @@ export default function Home({ story, preview }) {
       </header>
  
       <main>
-        { story ? story.content.body.map((blok) => (
-          <DynamicComponent blok={blok} key={blok._uid}/>
-        )) : null }
+        <DynamicComponent blok={story.content} />
       </main>
     </div>
   )
@@ -47,6 +45,6 @@ export async function getStaticProps(context) {
       story: data ? data.story : false,
       preview: context.preview || false
     },
-    revalidate: 10, 
+    revalidate: 3600, // revalidate every hour
   }
 }
