@@ -29,13 +29,16 @@ export default function Page({ story, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
+  // join the slug array used in Next.js catch-all routes
   let slug = params.slug ? params.slug.join("/") : "home";
 
   let sbParams = {
+    // change to `published` to load the published version
     version: "draft", // or published
   };
 
   if (preview) {
+    // set the version to draft in the preview mode
     sbParams.version = "draft";
     sbParams.cv = Date.now();
   }
@@ -52,10 +55,13 @@ export async function getStaticProps({ params, preview = false }) {
 }
 
 export async function getStaticPaths() {
+  // get all links from Storyblok
   let { data } = await Storyblok.get("cdn/links/");
 
   let paths = [];
+  // create a routes for every link
   Object.keys(data.links).forEach((linkKey) => {
+    // do not create a route for folders or the home (index) page
     if (data.links[linkKey].is_folder || data.links[linkKey].slug === "home") {
       return;
     }
@@ -64,6 +70,7 @@ export async function getStaticPaths() {
     const slug = data.links[linkKey].slug;
     let splittedSlug = slug.split("/");
 
+    // cretes all the routes
     paths.push({ params: { slug: splittedSlug } });
   });
 
