@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import SbEditable from 'storyblok-react'
 import Teaser from './Teaser'
 import Grid from './Grid'
@@ -13,11 +14,12 @@ const Components = {
 }
  
 const DynamicComponent = ({blok}) => {
+  const { isPreview } = useRouter()
   // check if component is defined above
   if (typeof Components[blok.component] !== 'undefined') {
     const Component = Components[blok.component]
     // wrap with SbEditable for visual editing
-    return (<SbEditable content={blok}><Component blok={blok} /></SbEditable>)
+    return isPreview ? (<SbEditable content={blok}><Component blok={blok} /></SbEditable>) : <Component blok={blok} />
   }
   
   // fallback if the component doesn't exist
