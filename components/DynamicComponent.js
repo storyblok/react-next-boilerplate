@@ -1,4 +1,4 @@
-import SbEditable from "storyblok-react";
+import { sbEditable } from "@storyblok/storyblok-editable";
 import Teaser from "./Teaser";
 import Grid from "./Grid";
 import Feature from "./Feature";
@@ -17,11 +17,7 @@ const DynamicComponent = ({ blok }) => {
   if (typeof Components[blok.component] !== "undefined") {
     const Component = Components[blok.component];
     // wrap with SbEditable for visual editing
-    return (
-      <SbEditable content={blok}>
-        <Component blok={blok} />
-      </SbEditable>
-    );
+    return (<Component blok={blok} {...sbEditable(blok)} key={blok._uid} />);
   }
 
   // fallback if the component doesn't exist
