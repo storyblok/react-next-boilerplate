@@ -1,5 +1,3 @@
-import { useRouter } from "next/router";
-import { sbEditable } from "@storyblok/storyblok-editable";
 import Teaser from "./Teaser";
 import Grid from "./Grid";
 import Feature from "./Feature";
@@ -14,16 +12,11 @@ const Components = {
 };
 
 const DynamicComponent = ({ blok }) => {
-  const { isPreview } = useRouter();
   // check if component is defined above
   if (typeof Components[blok.component] !== "undefined") {
     const Component = Components[blok.component];
-
-    return isPreview ? (
-      <Component blok={blok} {...sbEditable(blok)} key={blok._uid} />
-    ) : (
-      <Component blok={blok} />
-    );
+    // wrap with SbEditable for visual editing
+    return <Component blok={blok} key={blok._uid} />;
   }
 
   // fallback if the component doesn't exist
