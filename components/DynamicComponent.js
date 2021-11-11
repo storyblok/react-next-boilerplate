@@ -15,7 +15,7 @@ const DynamicComponent = ({ blok }) => {
   // check if component is defined above
   if (typeof Components[blok.component] !== "undefined") {
     const Component = Components[blok.component];
-    // wrap with SbEditable for visual editing
+
     return <Component blok={blok} key={blok._uid} />;
   }
 
