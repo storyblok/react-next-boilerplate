@@ -16,8 +16,8 @@ const DynamicComponent = ({ blok }) => {
   // check if component is defined above
   if (typeof Components[blok.component] !== "undefined") {
     const Component = Components[blok.component];
-
-    return <Component blok={blok} {...sbEditable(blok)} key={blok._uid} />;
+    // wrap with SbEditable for visual editing
+    return (<Component blok={blok} {...sbEditable(blok)} key={blok._uid} />);
   }
 
   // fallback if the component doesn't exist
