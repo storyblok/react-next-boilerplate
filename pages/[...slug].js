@@ -18,9 +18,7 @@ export default function Page({ story, preview }) {
       </Head>
 
       <header>
-        <h1>
-          { story ? story.name : 'My Site' }
-        </h1>
+        <h1>{story ? story.name : "My Site"}</h1>
       </header>
 
       <DynamicComponent blok={story.content} />
