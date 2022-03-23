@@ -1,12 +1,10 @@
-import React from "react";
-import DynamicComponent from "../components/DynamicComponent";
-import { sbEditable } from "@storyblok/storyblok-editable";
+import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
 
 const Grid = ({ blok }) => {
   return (
-    <div className="grid" {...sbEditable(blok)}>
-      {blok.columns.map((blok) => (
-        <DynamicComponent blok={blok} key={blok._uid} />
+    <div className="grid" {...storyblokEditable(blok)} key={blok._uid}>
+      {blok.columns.map((nestedBlok) => (
+        <StoryblokComponent blok={nestedBlok} />
       ))}
     </div>
   );
