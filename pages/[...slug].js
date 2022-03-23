@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 
 import {
   useStoryblokState,
-  useStoryblokApi,
+  getStoryblokApi,
   StoryblokComponent,
 } from "@storyblok/react";
 
@@ -33,7 +33,7 @@ export async function getStaticProps({ params }) {
     version: "draft", // or 'published'
   };
 
-  const storyblokApi = useStoryblokApi();
+  const storyblokApi = getStoryblokApi();
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
 
   return {
@@ -46,7 +46,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const storyblokApi = useStoryblokApi();
+  const storyblokApi = getStoryblokApi();
   let { data } = await storyblokApi.get("cdn/links/");
 
   let paths = [];
