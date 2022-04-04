@@ -1,8 +1,7 @@
-import React from "react";
-import { sbEditable } from "@storyblok/storyblok-editable";
+import { storyblokEditable } from "@storyblok/react";
 
 const Feature = ({ blok }) => (
-  <div className="column feature" {...sbEditable(blok)}>
+  <div className="column feature" {...storyblokEditable(blok)}>
     {blok.name}
   </div>
 );
